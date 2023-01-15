@@ -1,0 +1,29 @@
+Nepinusa backend app in python
+@version 0.1
+@date 19 November 2022
+@author Simant
+
+** in progress **
+
+to_do:
+    - main 
+    - models
+    - database
+    - crud
+    - endpoints
+    - migration
+    - auth
+    - query and filters
+
+commands_for_windows:
+
+    activate python virtual environment
+    from Nepinusa folder
+        Nepinusa>>>  .\env\Scripts\activate
+    install requirements from project folder
+        Nepinusa/project>>> pip install -r .\requirements.txt
+
+commands_for_uvicorn:
+    
+    
+
