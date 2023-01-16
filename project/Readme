@@ -38,3 +38,7 @@ to access server:
 
     docs:
         localhost:8004/docs
+
+user_details:
+    login: admin / Rame / Stu / Dent
+    password: admin123
