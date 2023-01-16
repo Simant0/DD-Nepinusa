@@ -5,25 +5,36 @@ Nepinusa backend app in python
 
 ** in progress **
 
-to_do:
-    - main 
-    - models
-    - database
-    - crud
-    - endpoints
-    - migration
-    - auth
-    - query and filters
-
+## not needed when using docker
 commands_for_windows:
-
     activate python virtual environment
     from Nepinusa folder
         Nepinusa>>>  .\env\Scripts\activate
     install requirements from project folder
         Nepinusa/project>>> pip install -r .\requirements.txt
 
+## not needed when using docker
 commands_for_uvicorn:
-    
-    
+    start uvicorn server
+    from project folder
+        - uvicorn main:app --reload
 
+## must have docker and docker-compose installed
+## verify with docker -v and docker-compose -v
+commands_for_docker:
+    from docker-compose.yml file location
+        ## create a container
+        - sudo docker-compose build
+        ## start container
+        - sudo docker-compose up -d
+        ## view running container
+        - sudo docker ps
+        ## stop container
+        - sudo docker stop <container_id>
+        ## ... view docker docs
+    
+to access server:
+    localhost:8004
+
+    docs:
+        localhost:8004/docs
