@@ -1,11 +1,13 @@
 # pull official base image
-FROM python:3.10.8-slim-buster
+FROM python
 
 # set working directory
 WORKDIR /usr/src/app
 
 # install system dependencies
-RUN apt-get update
+RUN apt-get update \
+    && apt-get -y install netcat gcc \
+    && apt-get clean
 
 # install python dependencies
 RUN pip install --upgrade pip
