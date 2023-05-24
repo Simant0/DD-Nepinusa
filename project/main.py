@@ -5,7 +5,8 @@ from fastapi import FastAPI
 from endpoints.school_endpoints import school_router
 from endpoints.process_endpoints import process_router
 from endpoints.user_endpoints import user_router, privileged_user_router, super_privileged_user_router
-
+from db.db import  engine
+from sqlmodel import SQLModel
 app = FastAPI()
 
 app.include_router(school_router, tags=['Schools'])
@@ -18,9 +19,9 @@ app.include_router(super_privileged_user_router, tags=['Admin'])
 def root():
     return {'message': "hello world"}
 
-# def create_db_and_tables(): 
-#     SQLModel.metadata.create_all(engine)  
+def create_db_and_tables(): 
+    SQLModel.metadata.create_all(engine)  
 
 
-# if __name__ == "__main__": 
-#     create_db_and_tables()
+if __name__ == "__main__": 
+    create_db_and_tables()

@@ -4,7 +4,7 @@ from passlib.context import CryptContext
 import jwt
 import datetime
 from starlette.status import HTTP_401_UNAUTHORIZED
-from repos.user_repos import find_user
+from repos.user_repos import find_user_email
 
 class AuthHandler:
     security = HTTPBearer()
@@ -39,10 +39,10 @@ class AuthHandler:
     
     def get_current_user( self, auth: HTTPAuthorizationCredentials = Security( security)):
         credentials_exception = HTTPException( status_code=HTTP_401_UNAUTHORIZED, detail='could not validate credentials')
-        username = self.decode_token(auth.credentials)
-        if username is None:
+        email = self.decode_token(auth.credentials)
+        if email is None:
             raise credentials_exception
-        user = find_user(username)
-        if username is None:
+        user = find_user_email(email)
+        if email is None:
             raise credentials_exception
         return user

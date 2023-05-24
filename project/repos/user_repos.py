@@ -10,11 +10,11 @@ def select_all_users():
         res = session.exec(statement).all()
         return res
 
-def find_user(name: str):
-    with Session(engine) as session:
-        statement = select(User).where(User.username == name)
-        res = session.exec(statement).first()
-        return res
+# def find_user(name: str):
+#     with Session(engine) as session:
+#         statement = select(User).where(User.username == name)
+#         res = session.exec(statement).first()
+#         return res
 
 def find_user_email( email: str):
     with Session(engine) as session:

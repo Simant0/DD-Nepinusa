@@ -10,7 +10,7 @@ from sqlmodel import select
 from auth.auth import AuthHandler
 from db.db import session
 from models.user_models import UserInput, User, UserLogin, UserDetails, UserTypes
-from repos.user_repos import select_all_users, find_user, find_user_email , find_user_details, find_user_by_id
+from repos.user_repos import select_all_users, find_user_email , find_user_details, find_user_by_id
 
 user_router = APIRouter()
 
@@ -24,14 +24,14 @@ auth_handler = AuthHandler()
 
 @user_router.post('/registration', status_code=201,description='Register new user')
 def register(user: UserInput):
-    user_found  = find_user(user.username)
-    if user_found:
-        raise HTTPException(status_code=400, detail='Username is taken')
+    # user_found  = find_user(user.username)
+    # if user_found:
+    #     raise HTTPException(status_code=400, detail='Username is taken')
     user_found = find_user_email(user.email)
     if user_found:
         raise HTTPException(status_code=400, detail='E-mail is already used to create an account')
     hashed_pwd = auth_handler.get_password_hash(user.password)
-    u = User(username=user.username, password=hashed_pwd, email=user.email, user_type=user.user_type)
+    u = User(first_name=user.first_name,last_name=user.last_name, password=hashed_pwd, email=user.email, user_type=user.user_type, password2=user.password2)
     session.add(u)
     session.commit()
     return {'message' : 'user created'}
@@ -39,15 +39,15 @@ def register(user: UserInput):
 
 @user_router.post('/login')
 def login(user: UserLogin):
-    user_found = find_user(user.username)
+    # user_found = find_user(user.username)
+    # if not user_found:
+    user_found = find_user_email( user.email)
     if not user_found:
-        user_found = find_user_email( user.username)
-    if not user_found:
-        raise HTTPException(status_code=401, detail='Invalid username and/or password')
+        raise HTTPException(status_code=401, detail='Invalid email and/or password')
     verified = auth_handler.verify_password(user.password, user_found.password)
     if not verified:
-        raise HTTPException(status_code=401, detail='Invalid username and/or password')
-    token = auth_handler.encode_token(user_found.username)
+        raise HTTPException(status_code=401, detail='Invalid email and/or password')
+    token = auth_handler.encode_token(user_found.email)
     return {'token': token}
 
 
